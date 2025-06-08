@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFG</title>
+    <link rel="stylesheet" href="tfg.css">
+</head>
+<body>
+    <header>
+        <nav class="barra_navegacion">
+            <ul class="opciones_navegacion">
+                <li><a id="abrirPopup" href="javascript:void(0);" class="icono-popup">
+                    <i class="fas fa-user"></i> <!-- Aquí usas un ícono de FontAwesome -->
+                </a></li>
+                <li><a id="selD1" href="#">Tráfico y Adquisición</a></li>
+                <li><a id="selD2" href="#">Interacciones y Conversión</a></li>
+                <li><a id="selD3" href="#">Dashboard Histórico</a></li>
+                <li><a id="selD4" href="#">Información Flujo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="contenedorD1">
+        <div id="contenedor_grafico_visitas" class="bloque dashboard1">
+            <canvas id="grafico_visitas"></canvas>
+        </div>
+        <div id="total_visitas" class="bloque dato dashboard1"></div>
+        <div id="visitantes_unicos" class="bloque dato dashboard1"></div>
+        <div id="media_visitas_usuario" class="bloque dato dashboard1"></div>
+        <div id="duracion_media_visitas" class="bloque dato dashboard1"></div>
+    </div>
+    <div id="contenedorD2">
+        <div id="top_elemento" class="bloque dato dashboard2"></div>
+        <div id="tasa_rebote" class="bloque dato dashboard2"></div>
+        <div id="media_paginas" class="bloque dato dashboard2"></div>
+        <div id="media_interacciones" class="bloque dato dashboard2"></div>
+        <div id="grafico_flujo" class="bloque dashboard2"></div>
+    </div>
+
+    <div id="contenedorD3">
+        <div id="contenedor_grafico_navegadores" class="bloque dashboard3">
+            <canvas id="grafico_navegadores"></canvas>
+        </div>
+        <div id="contenedor_grafico_zonas" class="bloque dashboard3">
+            <canvas id="grafico_zonas"></canvas>
+        </div>
+        <div id="contenedor_grafico_visitas_acumuladas" class="bloque dashboard3">
+            <canvas id="grafico_visitas_acumuladas"></canvas>
+        </div>
+        <div id="contenedor_grafico_tiempo_medio" class="bloque dashboard3">
+            <canvas id="grafico_tiempo_medio"></canvas>
+        </div>
+    </div>
+
+    <div id="contenedorD4">
+        <div id="filtro_usuarios" class="dashboard4">
+            <h2>Usuarios</h2>
+            <ul id="macs" class="lista-macs"></ul>
+        </div>
+        <div id="filtro_sesiones" class="dashboard4">
+            <h2>Sesiones</h2>
+            <ul id="sesiones" class="lista-sesiones"></ul>
+        </div>
+        <div id="informacion" class="bloque dashboard4">Haz click en un usuario</div>
+    </div>
+
+    <!-- Ventana emergente -->
+    <div id="popup" class="popup">
+        <div class="popup-contenido">
+            <span class="cerrar-popup" id="cerrarPopup">&times;</span>
+            <h2>Selecciona un usuario</h2>
+            <select id="usuarios" class="dropdown">
+                <option value="todos" selected>Todos</option> <!-- Opción "Todos" por defecto -->
+            </select>
+
+            <!-- Botón de acción -->
+            <button id="confirmarUsuario">Confirmar</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="tfg.js"></script>
+</body>
+</html>

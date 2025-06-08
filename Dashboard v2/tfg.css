@@ -1,0 +1,507 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+}
+
+/* Barra de navegación más fina */
+.barra_navegacion {
+    background-color: #333;
+    height: 50px; /* Altura fija */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Menú centrado */
+.opciones_navegacion {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo de los enlaces */
+.opciones_navegacion li {
+    position: relative;
+}
+
+.opciones_navegacion a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 20px; /* Solo padding lateral */
+    height: 50px; /* Igual a la altura de la barra */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+/* Efecto hover que cubre toda la barra verticalmente */
+.opciones_navegacion li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2); /* Color con transparencia */
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Activa el efecto cuando se pasa el ratón */
+.opciones_navegacion li:hover::before {
+    transform: scaleY(1);
+}
+
+/* Estilos para el select dentro de la barra de navegación */
+.barra_navegacion select {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    font-size: 16px; /* Tamaño de fuente igual que los enlaces */
+    font-weight: bold; /* Mismo peso de fuente que los enlaces */
+    padding: 10px 20px; /* Espaciado interno adecuado */
+    height: 30px; /* Altura ajustada */
+    outline: none; /* Sin borde de enfoque */
+    cursor: pointer; /* Indicador de que es interactivo */
+    appearance: none; /* Elimina la flecha predeterminada */
+    -webkit-appearance: none; /* Para Webkit (Chrome/Safari) */
+    -moz-appearance: none; /* Para Firefox */
+    width: 150px; /* Ancho fijo para evitar que el texto se corte */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Fallback para la flecha personalizada */
+.barra_navegacion select::after {
+    content: '▼'; /* Símbolo de la flecha */
+    font-size: 12px; /* Tamaño de la flecha */
+    color: white; /* Color de la flecha */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Estilos para el ícono en la barra de navegación */
+.barra_navegacion .icono-popup {
+    font-size: 24px; /* Tamaño del ícono */
+    color: white; /* Color del ícono */
+    text-decoration: none; /* Eliminar subrayado */
+    cursor: pointer; /* Indicar que es clickeable */
+    padding: 10px; /* Espaciado alrededor del ícono */
+}
+
+/* Estilos para la ventana emergente */
+.popup {
+    display: none; /* Ocultar por defecto */
+    position: fixed;
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ocupa toda la pantalla */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+.popup-contenido {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.popup h2 {
+    margin-top: 0;
+}
+
+/* Estilo para el botón de cerrar */
+.cerrar-popup {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.cerrar-popup:hover,
+.cerrar-popup:focus {
+    color: black;
+}
+
+/* Estilo para el desplegable */
+#usuarios {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* Estilo para el botón de confirmación */
+#confirmarUsuario {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirmarUsuario:hover {
+    background-color: #45a049;
+}
+
+/* Dashboards */
+
+#contenedorD1, #contenedorD2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+
+    gap: 5px; /* Espacio entre los elementos */
+    padding: 5px;
+}
+#contenedorD3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+
+    gap: 5px; /* Espacio entre los elementos */
+    padding: 5px;
+}
+#contenedorD4{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+
+    gap: 5px; /* Espacio entre los elementos */
+    padding: 5px;
+}
+
+.bloque {
+    border-radius: 5px;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 2;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.dato {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 1;
+
+    text-align: center; /* Centrar el texto */
+    flex-direction: column; /* Colocar en líneas separadas */
+}
+.numero {
+    font-size: 3rem; /* Tamaño grande para el número */
+}
+.texto {
+    font-size: 1.5rem; /* Tamaño más pequeño */
+    color: #666; /* Gris elegante */
+}
+
+#contenedor_grafico_visitas {
+    grid-row: 1 /span 2;
+    grid-column: 1 / span 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 2;
+}
+#contenedor_grafico_visitas_acumuladas {
+    grid-row: 1;
+    grid-column: 2 /span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 2;
+}
+#contenedor_grafico_tiempo_medio {
+    grid-row: 2;
+    grid-column: 2 /span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 2;
+}
+
+#grafico_flujo {
+    grid-row: 2 /span 3;
+    grid-column: 1 /span 4
+}
+
+#contenedor_grafico_navegadores {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#contenedor_grafico_zonas {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#filtro_usuarios {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#filtro_sesiones {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#informacion {
+    grid-row: 1 / span 2;
+    grid-column: 2 / span 3;
+}
+
+#total_visitas {
+    grid-row: 3;
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 1;
+    
+}
+#visitantes_unicos {
+    grid-row: 3;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 1;
+}
+#media_visitas_usuario {
+    grid-row: 3;
+    grid-column: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    order: 1;
+}
+#duracion_media_visitas {
+    grid-row: 3;
+    grid-column: 4;
+}
+#top_elemento {
+    grid-row: 1;
+    grid-column: 1;
+}
+#tasa_rebote {
+    grid-row: 1;
+    grid-column: 2;
+}
+#media_paginas {
+    grid-row: 1;
+    grid-column: 3;
+}
+#media_interacciones {
+    grid-row: 1;
+    grid-column: 4;
+}
+
+#filtro_usuarios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    width: 100%;
+    height: 43vh;  /* Ajusta una altura fija */
+}
+
+/* Título */
+#filtro_usuarios h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #444;
+    margin: 0;  /* Sin márgenes */
+    padding: 10px 0;  /* Algo de espacio arriba y abajo */
+}
+
+/* Lista de direcciones MAC */
+.lista-macs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;  /* Ocupa todo el ancho */
+    text-align: center;  /* Centra el texto de las direcciones MAC */
+    max-height: 400px;  /* Limita la altura máxima para permitir el desplazamiento */
+    overflow-y: auto;  /* Permite el desplazamiento vertical si es necesario */
+}
+
+/* Estilo para cada item */
+.item-mac {
+    padding: 12px;
+    font-size: 18px;
+    color: #333;
+    border-bottom: 1px solid #ddd;  /* Línea para separar los items */
+    background-color: #f9f9f9;  /* Fondo suave */
+    border-radius: 8px;  /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.2s;  /* Transición suave para hover */
+}
+
+/* Efecto al pasar el ratón */
+.item-mac:hover {
+    background-color: #e0e0e0;  /* Color de fondo más oscuro al hacer hover */
+    transform: translateY(-2px);  /* Pequeña elevación al hacer hover */
+}
+
+/* El último item sin borde */
+.item-mac:last-child {
+    border-bottom: none;
+}
+
+/* Filtro de sesiones */
+#filtro_sesiones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    width: 100%;
+    height: 43vh;  /* Ajusta una altura fija */
+}
+
+/* Título */
+#filtro_sesiones h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #444;
+    margin: 0;  /* Sin márgenes */
+    padding: 10px 0;  /* Algo de espacio arriba y abajo */
+}
+
+/* Lista de sesiones */
+.lista-sesiones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;  /* Ocupa todo el ancho */
+    text-align: center;  /* Centra el texto de las sesiones */
+    max-height: 400px;  /* Limita la altura máxima para permitir el desplazamiento */
+    overflow-y: auto;  /* Permite el desplazamiento vertical si es necesario */
+}
+
+/* Estilo para cada item */
+.item-sesion {
+    padding: 12px;
+    font-size: 18px;
+    color: #333;
+    border-bottom: 1px solid #ddd;  /* Línea para separar los items */
+    background-color: #f9f9f9;  /* Fondo suave */
+    border-radius: 8px;  /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.2s;  /* Transición suave para hover */
+}
+
+/* Efecto al pasar el ratón */
+.item-sesion:hover {
+    background-color: #e0e0e0;  /* Color de fondo más oscuro al hacer hover */
+    transform: translateY(-2px);  /* Pequeña elevación al hacer hover */
+}
+
+/* El último item sin borde */
+.item-sesion:last-child {
+    border-bottom: none;
+}
+
+
+
+#informacion {
+    background-color: #f9f9fb;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 1.5em;
+    margin-top: 1em;
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    max-height: 450px;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#informacion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#informacion li {
+    padding: 0.8em 1em;
+    margin-bottom: 0.5em;
+    background-color: #ffffff;
+    border-left: 4px solid #4a90e2;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+#informacion li::before {
+    content: "🔹";
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+#informacion li:hover {
+    background-color: #f0f4ff;
+    transform: scale(1.02);
+}
+
+#informacion p {
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeIn 0.6s forwards;
+}
